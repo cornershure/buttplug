@@ -41,7 +41,8 @@ impl ProtocolHandler for TCodeV03 {
                 command.push_str(&format!("L{i}{position:03}\n"));
             } else {
                 // Rotational axes R0, R1, R2
-                command.push_str(&format!("R{i - 3}{position:03}\n"));
+                let index = i - 3;  // Adjust for rotational axes
+                command.push_str(&format!("R{index}{position:03}\n"));
             }
         }
 
@@ -76,7 +77,8 @@ impl ProtocolHandler for TCodeV03 {
                 command.push_str(&format!("L{i}{position:03}I{duration}\n"));
             } else {
                 // Rotational axes R0, R1, R2
-                command.push_str(&format!("R{i - 3}{position:03}I{duration}\n"));
+                let index = i - 3;  // Adjust for rotational axes
+                command.push_str(&format!("R{index}{position:03}I{duration}\n"));
             }
         }
 
