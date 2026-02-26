@@ -7,18 +7,18 @@ defaults:
       output:
         position:
           value:
-            - 0.0  # L0 (Stroke) position (0 - 1 range)
-            - 0.5  # L1 (Forward) position (0 - 1 range)
-            - 0.2  # L2 (Left) position (0 - 1 range)
+            - 0  # L0 (Stroke) position (0 range)
+            - 500  # L1 (Forward) position (500 for 0.5)
+            - 200  # L2 (Left) position (200 for 0.2)
       index: 0
     # Rotational axes: R0, R1, R2
     - id: 5082a7a6-b256-42f3-a8c2-388f8c04298d
       output:
         position:
           value:
-            - 0.0  # R0 (Twist) position (0 - 1 range)
-            - 0.8  # R1 (Roll) position (0 - 1 range)
-            - 0.4  # R2 (Pitch) position (0 - 1 range)
+            - 0  # R0 (Twist) position (0 range)
+            - 800  # R1 (Roll) position (800 for 0.8)
+            - 400  # R2 (Pitch) position (400 for 0.4)
       index: 1
   id: 211da02e-467c-4788-96bd-689049867e85
 
