@@ -5,10 +5,9 @@
 // Licensed under the BSD 3-Clause license. See LICENSE file in the project root
 // for full license information.
 use uuid::Uuid;
-
 use crate::device::{
-  hardware::{HardwareCommand, HardwareWriteCmd},
-  protocol::{ProtocolHandler, generic_protocol_setup},
+    hardware::{HardwareCommand, HardwareWriteCmd},
+    protocol::{ProtocolHandler, generic_protocol_setup},
 };
 use buttplug_core::errors::ButtplugDeviceError;
 use buttplug_server_device_config::Endpoint;
@@ -19,10 +18,7 @@ generic_protocol_setup!(TCodeV03, "tcode-v03");
 pub struct TCodeV03 {}
 
 impl ProtocolHandler for TCodeV03 {
-
-    // Axis definitions
-    // These are the axes we are working with, mapped to their corresponding 'L' (Linear) and 'R' (Rotational) channels.
-    // Note: Each axis maps to an ID and description, e.g., 'L0' (Stroke), 'L1' (Forward), etc.
+    // This is for multi-axis support. The AXES constant maps to L0, L1, L2, R0, R1, R2.
     const AXES: [&str; 6] = ["L0", "L1", "L2", "R0", "R1", "R2"];
 
     fn handle_output_position_cmd(
@@ -33,7 +29,7 @@ impl ProtocolHandler for TCodeV03 {
     ) -> Result<Vec<HardwareCommand>, ButtplugDeviceError> {
         let mut msg_vec = vec![];
 
-        // Generate the command string for each axis
+        // Generate the command string for each axis (L0, L1, L2 for linear, R0, R1, R2 for rotational)
         let mut command = String::new();
         for (i, &position) in positions.iter().enumerate() {
             if i < 3 {
@@ -41,8 +37,7 @@ impl ProtocolHandler for TCodeV03 {
                 command.push_str(&format!("L{i}{position:03}\n"));
             } else {
                 // Rotational axes R0, R1, R2
-                let index = i - 3;  // Adjust for rotational axes
-                command.push_str(&format!("R{index}{position:03}\n"));
+                command.push_str(&format!("R{i - 3}{position:03}\n"));
             }
         }
 
@@ -62,14 +57,14 @@ impl ProtocolHandler for TCodeV03 {
 
     fn handle_hw_position_with_duration_cmd(
         &self,
-        feature_index: u32,
+        _feature_index: u32,
         feature_id: Uuid,
-        positions: Vec<u32>,  // Accepts multiple positions for multi-axis
+        positions: Vec<u32>,  // Handling multiple positions for multi-axis
         durations: Vec<u32>,  // Duration for each axis
     ) -> Result<Vec<HardwareCommand>, ButtplugDeviceError> {
         let mut msg_vec = vec![];
 
-        // Generate the command string for each axis with duration
+        // Generate the command string for each axis with its respective duration
         let mut command = String::new();
         for (i, (&position, &duration)) in positions.iter().zip(durations.iter()).enumerate() {
             if i < 3 {
@@ -77,8 +72,7 @@ impl ProtocolHandler for TCodeV03 {
                 command.push_str(&format!("L{i}{position:03}I{duration}\n"));
             } else {
                 // Rotational axes R0, R1, R2
-                let index = i - 3;  // Adjust for rotational axes
-                command.push_str(&format!("R{index}{position:03}I{duration}\n"));
+                command.push_str(&format!("R{i - 3}{position:03}I{duration}\n"));
             }
         }
 
