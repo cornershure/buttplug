@@ -3,29 +3,51 @@ defaults:
   name: TCode v0.3 (Multi-Axis Support)
   features:
     # Linear axes: L0, L1, L2
-    - id: 4097edde-7efb-4c3e-afdb-0aeb82a03fd9
+    - id: '4097edde-7efb-4c3e-afdb-0aeb82a03fd9'  # Unique ID for L0
       output:
         position:
           value:
-            - 0   # L0 (Stroke) minimum position
+            - 0    # L0 (Stroke) minimum position
             - 1000 # L0 (Stroke) maximum position
-            - 0   # L1 (Forward) minimum position
-            - 1000 # L1 (Forward) maximum position
-            - 0   # L2 (Left) minimum position
-            - 1000 # L2 (Left) maximum position
       index: 0
+    - id: 'a2b5e673-19b4-49a6-8c73-8c34b30ed34b'  # Unique ID for L1
+      output:
+        position:
+          value:
+            - 0    # L1 (Forward) minimum position
+            - 1000 # L1 (Forward) maximum position
+      index: 1
+    - id: 'c28d7391-33c5-4e5f-93b8-bf04b8ab1f0d'  # Unique ID for L2
+      output:
+        position:
+          value:
+            - 0    # L2 (Left) minimum position
+            - 1000 # L2 (Left) maximum position
+      index: 2
+
     # Rotational axes: R0, R1, R2
-    - id: 5082a7a6-b256-42f3-a8c2-388f8c04298d
+    - id: '5082a7a6-b256-42f3-a8c2-388f8c04298d'  # Unique ID for R0
       output:
         position:
           value:
             - 0    # R0 (Twist) minimum position
             - 1000 # R0 (Twist) maximum position
+      index: 3
+    - id: '66d40519-e72b-428b-b5ab-19b818b69d92'  # Unique ID for R1
+      output:
+        position:
+          value:
             - 0    # R1 (Roll) minimum position
             - 1000 # R1 (Roll) maximum position
+      index: 4
+    - id: 'e6a38ed9-cce4-4f4b-bc28-35e1c67d4040'  # Unique ID for R2
+      output:
+        position:
+          value:
             - 0    # R2 (Pitch) minimum position
             - 1000 # R2 (Pitch) maximum position
-      index: 1
+      index: 5
+
   id: 211da02e-467c-4788-96bd-689049867e85
 
 communication:
