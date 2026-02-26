@@ -1,19 +1,31 @@
 ---
 defaults:
-  name: TCode v0.3 (Single Linear Axis)
+  name: TCode v0.3 (Multi-Axis Support)
   features:
-  - id: 4097edde-7efb-4c3e-afdb-0aeb82a03fd9
-    output:
-      position:
-        value:
-          - 0
-          - 1000
-    index: 0
+    # Linear axes: L0, L1, L2
+    - id: 4097edde-7efb-4c3e-afdb-0aeb82a03fd9
+      output:
+        position:
+          value:
+            - 0.0  # L0 (Stroke) position (0 - 1 range)
+            - 0.5  # L1 (Forward) position (0 - 1 range)
+            - 0.2  # L2 (Left) position (0 - 1 range)
+      index: 0
+    # Rotational axes: R0, R1, R2
+    - id: 5082a7a6-b256-42f3-a8c2-388f8c04298d
+      output:
+        position:
+          value:
+            - 0.0  # R0 (Twist) position (0 - 1 range)
+            - 0.8  # R1 (Roll) position (0 - 1 range)
+            - 0.4  # R2 (Pitch) position (0 - 1 range)
+      index: 1
   id: 211da02e-467c-4788-96bd-689049867e85
+
 communication:
-- serial:
-    port: default
-    baud_rate: 115200
-    data_bits: 8
-    parity: "N"
-    stop_bits: 1
+  - serial:
+      port: default
+      baud_rate: 115200
+      data_bits: 8
+      parity: "N"
+      stop_bits: 1
